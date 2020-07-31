@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Долгий ящик</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Полка</h1>
+        <p>
+            Привет.
+            Это приложение поможет тебе отложить своё дело в долгий ящик и забыть о нём навсегда.
+            Но мы надеемся, что совесть взыграет, а ты одумаешься и вернёшся.
+        </p>
+
+        <task-form @add-task="addTask" @show-errors="showErrors"></task-form>
+
+        <errors :errors="errors"></errors>
+        
+        <tasks :tasks="tasks"></tasks>
+    </div>
+
+    <script src="script/vue.js"></script>
+    <script src="script/main.js"></script>
+</body>
+</html>
