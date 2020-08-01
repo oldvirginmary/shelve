@@ -46,7 +46,11 @@ Vue.component("tasks", {
     props: ["tasks"],
     template: `
         <ol class="tasks">
-            <li :class="['task', { 'task--completed': task.isCompleted }]" v-for="(task, index) in tasks">
+            <li 
+                :class="['task', { 'task--completed': task.isCompleted }]" 
+                v-for="(task, index) in tasks" 
+                :key="index"
+            >
                 <div class="text-wrapper">
                     <h2 class="task__name">{{ task.name }}</h2>
                     <p class="task__description">{{ task.description }}</p>
@@ -81,7 +85,7 @@ Vue.component("errors", {
     props: ["errors"],
     template: `
         <ol>
-            <li v-for="error in errors">{{ error }}</li>
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ol>
     `
 });
