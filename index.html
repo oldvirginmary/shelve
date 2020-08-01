@@ -18,8 +18,8 @@
         <task-form @add-task="addTask" @show-errors="showErrors"></task-form>
 
         <errors :errors="errors"></errors>
-        
-        <tasks :tasks="tasks"></tasks>
+
+        <tasks :tasks="tasks" @toggle-task-status="toggleTaskStatus" @remove-task="removeTask"></tasks>
     </div>
 
     <script src="script/vue.js"></script>

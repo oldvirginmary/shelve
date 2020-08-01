@@ -55,12 +55,12 @@ Vue.component("tasks", {
                     <button 
                         class="task__btn"
                         v-if="!task.isCompleted" 
-                        @click="task.isCompleted = true"
+                        @click="toggleTaskStatus(task)"
                     >Завершить</button>
                     <button 
                         class="task__btn"
                         v-if="task.isCompleted" 
-                        @click="task.isCompleted = false"
+                        @click="toggleTaskStatus(task)"
                     >Восстановить</button>
                     <button class="task__btn" @click="removeTask(index)">Удалить</button>
                 </div>
@@ -69,7 +69,10 @@ Vue.component("tasks", {
     `,
     methods: {
         removeTask(index) {
-            this.tasks.splice(index, 1);
+            this.$emit("remove-task", index);
+        },
+        toggleTaskStatus(task) {
+            this.$emit("toggle-task-status", task);
         }
     }
 });
@@ -92,9 +95,24 @@ let app = new Vue({
     methods: {
         addTask(task) {
             this.tasks.push(task);
+            this.__updateStorage();
+        },
+        toggleTaskStatus(task) {
+            task.isCompleted = !task.isCompleted;
+            this.__updateStorage();
+        },
+        removeTask(index) {
+            this.tasks.splice(index, 1);
+            this.__updateStorage();
+        },
+        __updateStorage() {
+            localStorage.setItem("tasks", JSON.stringify(this.tasks));
         },
         showErrors(errors) {
             this.errors = errors;
         },
+    },
+    mounted() {
+        this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     }
 });
